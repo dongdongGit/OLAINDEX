@@ -120,11 +120,12 @@ chown -R www:www *
 ### TODO
 
  - [ ] install
- - [ ] aria2
+ - [ ] aria2 (自动填充上传到 onedrive 路径)
  - [x] Console/OneDrive (cache、refresh)
  - [x] ManggeController
  - [x] IndexConttroller
  - [ ] themes 配置 (caffeinated/themes)
+ - [ ] 二步验证记住设备 (cookie)
 
 ### 注意事项
 修改Job时，需要重启supervisorctl
