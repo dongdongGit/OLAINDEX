@@ -21,8 +21,8 @@ Route::group(['middleware' => 'detectOneDrive'], function () {
 
 // 前台
 Route::group(['namespace' => 'Index'], function () {
-    Route::get('/', 'Auth\\LoginController@showLoginForm')->name('login');
-    Route::post('/', 'Auth\\LoginController@login');
+    Route::get('/', 'AuthController@showLoginForm')->name('login');
+    Route::post('/', 'AuthController@login');
 
     Route::group(['middleware' => ['auth:web']], function () {
         Route::post('/logout', 'Auth\\LoginController@logout')->name('logout');

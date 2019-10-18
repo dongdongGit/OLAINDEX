@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Index\Auth;
+namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     use AuthenticatesUsers;
 
@@ -40,7 +40,7 @@ class LoginController extends Controller
         $this->guard()->logout();
 
         return $this->loggedOut($request) ?: redirect($this->redirectToLogin);
-    } 
+    }
 
     protected function guard()
     {
