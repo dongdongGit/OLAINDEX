@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Chumper\Zipper\Zipper;
 use Carbon\Carbon;
 
 /**
@@ -894,7 +893,7 @@ class OneDrive
             $temp = self::getTempFile($pathInfo);
             $old_memory_limit = ini_get('memory_limit');
             ini_set('memory_limit', '-1');
-            $zipper = new Zipper();
+            $zipper = new Madzipper();
             $zipper->make($temp)->add($path)->close();
             ini_set('memory_limit', $old_memory_limit);
 
