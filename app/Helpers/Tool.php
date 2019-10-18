@@ -41,6 +41,7 @@ class Tool
     public static function hasImages($items)
     {
         $hasImage = false;
+
         foreach ($items as $item) {
             if (isset($item['image'])) {
                 $hasImage = true;
