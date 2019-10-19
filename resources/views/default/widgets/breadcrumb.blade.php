@@ -4,7 +4,10 @@
             <a href="{{ route('onedrive.list') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{ route('home', ['onedrove' => app('onedrive')->id]) }}"><i class="fa fa-cloud" aria-hidden="true"></i> {{ app('onedrive')->name }}</a>
+            <a href="{{ route('home', [
+                'query' => '',
+                'onedrove' => app('onedrive')->id
+            ]) }}"><i class="fa fa-cloud" aria-hidden="true"></i> {{ app('onedrive')->name }}</a>
         </li>
     @if (Arr::get(app('request')->route()->action, 'as') == 'search')
         <li class="breadcrumb-item active">搜索: {{ app('request')->get('keywords') }}</li>
