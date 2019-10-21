@@ -2,13 +2,17 @@
 
 namespace App\Observers;
 
+use App\Jobs\OneDriveUpload;
 use App\Models\Task;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
 class TaskObserver
 {
+    public function created(Task $task)
+    {
+        dispatch(new OneDriveUpload($task));
+    }
+
     /**
      * Handle the one drive "creating" event.
      *

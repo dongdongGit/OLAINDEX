@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Task;
-use App\Jobs\OneDriveUpload;
 use Illuminate\Support\Arr;
 
 class Aria2cToOnedriveUpload extends Command
@@ -74,23 +73,24 @@ class Aria2cToOnedriveUpload extends Command
             $match = [];
 
             if (preg_match('/(odid|path)=([\S]+)/', $item, $match)) {
+                if (count($match) < 3) {
+                    continue;
+                }
+
+                $need_match = array_pop($match);
+
+                if (!empty($need_match)) {
+                    continue;
+                }
+
                 if ($match[1] == 'path') {
-                    if ($match[2]) {
-                        $target_path = str_replace('\\', '/', $match[2]);
-                    }
-
-                    $data['target'] = $target_path;
+                    $data['target'] = str_replace('\\', '/', $need_match);
                 } else {
-                    if ($match[2]) {
-                        $onedrive_id = $match[2];
-                    }
-
-                    $data['onedrive_id'] = $onedrive_id;
+                    $data['onedrive_id'] = $need_match;
                 }
             }
         }
 
-        $task = Task::create($data);
-        dispatch(new OneDriveUpload($task));
+        Task::create($data);
     }
 }
