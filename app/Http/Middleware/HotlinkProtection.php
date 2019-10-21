@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Helpers\Tool;
 use Closure;
 use Illuminate\Support\Str;
 use App\Models\Admin;
@@ -21,6 +20,7 @@ class HotlinkProtection
     {
         $admin = Admin::firstOrFail();
         $hotlink_protection = $admin->hotlink_protection ?? '';
+
         if ($hotlink_protection) {
             $self = $request->getHttpHost();
 

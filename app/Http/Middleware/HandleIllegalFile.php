@@ -23,7 +23,8 @@ class HandleIllegalFile
         $path_array = $origin_path ? explode('/', $origin_path) : [];
         $fileName = array_pop($path_array);
         $illegalFile = ['README.md', 'HEAD.md', '.password', '.deny'];
-        $pattern = '/^README\.md|HEAD\.md|\.password|\.deny/';
+        $pattern = '/^README\.md|HEAD\.md|\.password|\.deny/i';
+
         if (in_array($fileName, $illegalFile)
             || preg_match($pattern, $fileName, $arr) > 0
         ) {
