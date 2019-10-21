@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Index'], function () {
     Route::post('/', 'AuthController@login');
 
     Route::group(['middleware' => ['auth:web']], function () {
-        Route::post('/logout', 'Auth\\LoginController@logout')->name('logout');
+        Route::post('/logout', 'AuthController@logout')->name('logout');
         Route::get('onedrive', 'OneDriveController@index')->name('onedrive.list');
         Route::group(['middleware' => [
             'detectOneDrive',
