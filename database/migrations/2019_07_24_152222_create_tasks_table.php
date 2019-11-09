@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->enum('status', ['pending', 'completed', 'failed'])->default('pending')->comment('任务状态');
             $table->enum('type', ['file', 'folder'])->default('file')->comment('上传类型');
             $table->integer('onedrive_id')->unsigned()->index()->comment('OneDrive_ID');
-            $table->string('gid')->nullable()->comment('gid');
+            $table->char('gid', 16)->nullable()->comment('gid');
             $table->string('source')->comment('第一个文件路径');
             $table->string('target')->default('/')->comment();
             $table->timestamp('created_at')->nullable();
