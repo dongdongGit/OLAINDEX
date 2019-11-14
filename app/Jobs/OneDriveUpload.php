@@ -62,7 +62,7 @@ class OneDriveUpload extends Job
         }, function () {
             // Could not obtain lock...
 
-            return $this->release(10);
+            return $this->release(60);
         });
     }
 
