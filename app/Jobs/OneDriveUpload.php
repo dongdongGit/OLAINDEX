@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class OneDriveUpload extends Job
 {
-    protected $task = null;
+    protected $task;
     /**
      * The number of times the job may be attempted.
      *
