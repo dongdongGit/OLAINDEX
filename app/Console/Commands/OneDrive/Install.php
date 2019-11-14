@@ -43,6 +43,7 @@ class Install extends Command
         $this->call('cache:clear');
         $this->warn('Please make sure you have rights to configure!');
         $this->info('chmod -R 755 storage/* && chown -R www:www *');
+
         if (!file_exists(storage_path('app/config.json'))) {
             $this->warn('Missing the Configuration File');
             copy(
@@ -51,10 +52,12 @@ class Install extends Command
             );
             $this->info('Done!');
         };
+
         if (!file_exists(base_path('.env.example'))) {
             $this->warn('No [.env.example] File,please make sure the project complete!');
             exit;
         }
+
         $app_url = $this->ask('Bind Domain(For Authorize)');
         $search_db = [
             'APP_KEY=',
@@ -66,6 +69,7 @@ class Install extends Command
         ];
         $envExample = file_get_contents(base_path('.env.example'));
         $env = str_replace($search_db, $replace_db, $envExample);
+
         if (file_exists(base_path('.env'))) {
             if ($this->confirm('Already have [.env] ,overwrite?')) {
                 @unlink(base_path('.env'));
@@ -74,16 +78,19 @@ class Install extends Command
         } else {
             file_put_contents(base_path('.env'), $env);
         }
+
         $this->call('config:cache'); // 生成配置缓存否则报错
         $this->warn('Password：[ 12345678 ]');
         $cmd = ['chmod', '777', 'storage/app/config.json'];
         $process = new Process($cmd);
         $process->run();
+
         if (!$process->isSuccessful()) {
             $this->info('Please run this command to make sure you have the permission'
                 . '[ chmod 777 storage/app/config.json ]');
             throw new ProcessFailedException($process);
         }
+
         echo $process->getOutput();
         $this->warn('All Done!');
     }

@@ -59,6 +59,7 @@ class Logout extends Command
             'image_hosting_path'   => '',
         ];
         $saved = Tool::updateConfig($data);
+
         if ($saved) {
             $this->call('cache:clear');
             $this->warn('Logout Success!');

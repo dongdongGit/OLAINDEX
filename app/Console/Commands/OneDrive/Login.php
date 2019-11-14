@@ -70,10 +70,12 @@ class Login extends Command
     public function handle()
     {
         getDefaultOneDriveAccount($this->option('one_drive_id'));
+
         if (app('onedrive')->is_binded) {
             $this->error('Already bind account');
             exit;
         }
+
         if (!app('onedrive')->is_configuraed) {
             if ($this->confirm('Missing client_id & client_secret,continue?')) {
                 $account_type = $this->choice(
@@ -95,13 +97,15 @@ class Login extends Command
                     'account_type'  => $account_type,
                     'expires'       => $cache_expires,
                 ];
-                // Tool::updateConfig($data);
+
                 app('onedrive')->update($data);
                 $this->info('Configuration completed!');
                 $this->warn('Please run this command again!');
             }
+
             exit('Already out!');
         }
+
         $values = [
             'client_id'     => app('onedrive')->client_id,
             'redirect_uri'  => app('onedrive')->redirect_uri,
@@ -130,6 +134,7 @@ class Login extends Command
 
         $curl = new Curl();
         $curl->post($this->access_token_url, $form_params);
+
         if ($curl->error) {
             Log::error(
                 'OneDriveGraph Login Err',
@@ -152,7 +157,7 @@ class Login extends Command
                 'refresh_token'        => $refresh_token,
                 'access_token_expires' => $expires,
             ];
-            // Tool::updateConfig($data);
+
             app('onedrive')->update($data);
             $this->info('Login Success!');
             $this->info('Account [' . Tool::getBindAccount() . ']');

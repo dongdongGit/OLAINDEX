@@ -40,8 +40,10 @@ class WhereIs extends Command
         } else {
             $this->call('od:refresh');
         }
+
         $id = $this->argument('id');
         $response = OneDrive::itemIdToPath($id);
+
         if ($response['errno'] === 0) {
             $this->info(array_get($response, 'data.path'));
         } else {

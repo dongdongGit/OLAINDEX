@@ -41,6 +41,7 @@ class Direct extends Command
         } else {
             $this->call('od:refresh');
         }
+
         $this->info('Please waiting...');
         $remote = $this->argument('remote');
         $_remote = OneDrive::pathToItemId($remote);

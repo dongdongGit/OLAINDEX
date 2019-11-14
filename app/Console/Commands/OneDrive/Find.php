@@ -42,11 +42,13 @@ class Find extends Command
     public function handle()
     {
         $this->info('请稍等...');
+
         if (!empty($this->option('one_drive_id'))) {
             $this->call('od:refresh', ['--one_drive_id' => $this->option('one_drive_id')]);
         } else {
             $this->call('od:refresh');
         }
+
         $keywords = $this->argument('keywords');
         $remote = $this->option('remote');
         $offset = $this->option('offset');
@@ -59,6 +61,7 @@ class Find extends Command
         }
 
         $data = $response['errno'] === 0 ? $response['data'] : [];
+
         if (!$data) {
             $this->warn('Please try again later');
             exit;
@@ -84,6 +87,7 @@ class Find extends Command
     public function format($data)
     {
         $list = [];
+
         foreach ($data as $item) {
             $type = Arr::has($item, 'folder') ? 'd' : '-';
             $size = convertSize($item['size']);
@@ -92,6 +96,7 @@ class Find extends Command
                 ? Arr::get($item, 'folder.childCount')
                 : '1';
             $owner = Arr::get($item, 'createdBy.user.displayName');
+
             if ($id = $this->option('id')) {
                 $response = OneDrive::itemIdToPath($item['id']);
                 $path = $response['errno'] === 0 ? $response['data']['path']

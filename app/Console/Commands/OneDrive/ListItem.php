@@ -44,10 +44,12 @@ class ListItem extends Command
         } else {
             $this->call('od:refresh');
         }
+
         $remote = $this->argument('remote');
         $id = $this->option('id');
         $offset = $this->option('offset');
         $length = $this->option('limit');
+
         if ($id) {
             $data = Cache::remember(
                 'one_' . app('onedrive')->id . ':list:id:' . $id,

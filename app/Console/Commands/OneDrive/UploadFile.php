@@ -53,8 +53,8 @@ class UploadFile extends Command
         $chuck = $this->option('chuck');
         $folder = $this->option('folder');
         $archive = !empty($this->option('archive')) ? true : false;
-
         $local = OneDrive::compressedFile($local, $archive);
+
         if (!$local) {
             return $this->error('file not found!');
         }
@@ -69,6 +69,7 @@ class UploadFile extends Command
     public function uploadFile($local, $remote, $chuck)
     {
         $file_size = OneDrive::readFileSize($local);
+
         if ($file_size < 4194304) {
             return $this->upload($local, $remote);
         } else {
@@ -95,6 +96,7 @@ class UploadFile extends Command
 
         info("上传路径:{$remote_path}");
         $response = OneDrive::uploadByPath($remote_path, $content);
+
         if ($response['errno'] === 0) {
             $this->info('Upload Success!');
             @unlink($local);
@@ -117,6 +119,7 @@ class UploadFile extends Command
         $file_name = basename($local);
         $remote_path = Tool::getAbsolutePath($remote) . $file_name;
         $basenameRemote = basename($remote);
+
         if (preg_match('/(.+)(?<!\\\\)\.[^.]+$/', $basenameRemote)) {
             $remote_path = $remote;
         }
@@ -136,6 +139,7 @@ class UploadFile extends Command
         $done = false;
         $offset = 0;
         $length = $chuck;
+
         while (!$done) {
             $retry = 0;
             $response = OneDrive::uploadToSession(
