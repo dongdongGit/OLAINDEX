@@ -18,6 +18,7 @@ class CheckImage
     public function handle($request, Closure $next)
     {
         $status = Arr::get(app('onedrive')->settings, 'image_hosting');
+
         if ($status == 'disabled' || $status == 'admin_enabled' && auth()->guard('admin')->check()) {
             return redirect()->route('home');
         }
