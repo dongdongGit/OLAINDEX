@@ -99,10 +99,12 @@ class GraphRequest
                 'Content-Type'  => 'application/json',
                 'Authorization' => 'Bearer ' . $this->accessToken,
             ], $this->headers);
+
             if (stripos($this->endpoint, 'http') !== 0) {
                 $this->endpoint = $this->apiVersion . $this->endpoint;
             }
         }
+
         $this->requestType = strtoupper($method);
         $options = [
             CURLOPT_CUSTOMREQUEST  => $this->requestType,
@@ -112,6 +114,7 @@ class GraphRequest
             CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_ENCODING       => 'gzip,deflate',
         ];
+
         if ($this->requestBody) {
             $options = Arr::add($options, CURLOPT_POST, true);
             $options = Arr::add(
@@ -133,6 +136,7 @@ class GraphRequest
         $curl->setOpts($options);
         $curl->exec();
         $curl->close();
+
         if ($curl->error) {
             Log::error(
                 'Get OneDrive source content error.',
