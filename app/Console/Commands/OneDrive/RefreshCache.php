@@ -54,8 +54,7 @@ class RefreshCache extends Command
         $this->call('od:refresh', ['--one_drive_id' => app('onedrive')->id]);
         $response = OneDrive::getChildrenByPath(
             $path,
-            '?select=id,eTag,name,size,lastModifiedDateTime,file,image,folder,@microsoft.graph.downloadUrl'
-            . '&expand=thumbnails'
+            '?select=id,eTag,name,size,lastModifiedDateTime,file,image,folder,@microsoft.graph.downloadUrl&expand=thumbnails'
         );
 
         return $response['errno'] === 0 ? $response['data'] : null;
@@ -71,6 +70,7 @@ class RefreshCache extends Command
         set_time_limit(0);
         $this->info($path);
         $data = $this->getChildren($path);
+
         if (is_array($data)) {
             Cache::put(
                 'one_' . app('onedrive')->id . ':list:' . $path,
@@ -81,7 +81,7 @@ class RefreshCache extends Command
             exit('Cache Error!');
         }
 
-        foreach ((array)$data as $item) {
+        foreach ((array) $data as $item) {
             if (Arr::has($item, 'folder')) {
                 $this->getRecursive($path . $item['name'] . '/');
             }

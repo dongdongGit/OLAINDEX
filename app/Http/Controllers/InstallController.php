@@ -58,14 +58,17 @@ class InstallController extends Controller
         if (Tool::hasConfig()) {
             return redirect()->route('bind');
         }
+
         //  显示基础信息的填写、申请或提交应用信息、返回
         if ($request->isMethod('get')) {
             return view(config('olaindex.theme') . 'install.init');
         }
+
         $client_id = $request->get('client_id');
         $client_secret = $request->get('client_secret');
         $redirect_uri = $request->get('redirect_uri');
         $account_type = $request->get('account_type');
+
         if (empty($client_id) || empty($client_secret)
             || empty($redirect_uri)
         ) {
@@ -73,6 +76,7 @@ class InstallController extends Controller
 
             return redirect()->back();
         }
+
         // 写入配置
         $data = [
             'client_id'     => $client_id,
@@ -97,6 +101,7 @@ class InstallController extends Controller
 
             return view(config('olaindex.theme') . 'message');
         }
+
         $data = [
             'client_id'     => '',
             'client_secret' => '',
@@ -122,6 +127,7 @@ class InstallController extends Controller
 
             return view(config('olaindex.theme') . 'message');
         }
+
         if ($request->isMethod('post')) {
             if (Tool::hasBind()) {
                 Tool::showMessage('您已绑定帐号，无法重置', false);

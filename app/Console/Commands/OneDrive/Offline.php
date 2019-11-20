@@ -42,10 +42,11 @@ class Offline extends Command
         } else {
             $this->call('od:refresh');
         }
-        
+
         $remote = $this->argument('remote');
         $url = $this->argument('url');
         $response = OneDrive::uploadUrl($remote, $url);
+
         if ($response['errno'] === 200) {
             $redirect = Arr::get($response, 'data.redirect');
             $this->info('progress link: ' . $redirect);

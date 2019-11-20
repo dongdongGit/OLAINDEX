@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class OneDriveUpload extends Job
 {
-    protected $task = null;
+    protected $task;
     /**
      * The number of times the job may be attempted.
      *
@@ -62,7 +62,7 @@ class OneDriveUpload extends Job
         }, function () {
             // Could not obtain lock...
 
-            return $this->release(10);
+            return $this->release(60);
         });
     }
 

@@ -48,6 +48,7 @@ class SwitchType extends Command
                 exit;
             }
         }
+
         $data = ['account_type' => $type];
         $saved = Tool::updateConfig($data);
         $saved ? $this->info('Success!') : $this->warn('Failed!');

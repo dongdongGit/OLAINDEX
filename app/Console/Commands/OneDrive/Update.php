@@ -44,6 +44,7 @@ class Update extends Command
         // 获取当前版本,默认开发版
         $this->warn('Start updating...');
         $version = Tool::config('app_version', 'v3.2');
+
         if (version_compare($version, 'v3.2') < 0) {
             $this->warn('Version less [v3.2] ,Failed！Please delete the config.json and try again later');
         } else {
@@ -84,6 +85,7 @@ class Update extends Command
             $config = Tool::config();
             $config = array_merge($config, ['app_version' => 'v3.2.1']);
         }
+
         $saved = Tool::saveConfig($config);
 
         return $saved ? $this->returnStatus('更新成功，version=v3.2.1')
