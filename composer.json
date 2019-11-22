@@ -34,6 +34,7 @@
         "spatie/laravel-activitylog": "^3.9"
     },
     "require-dev": {
+        "facade/ignition": "^1.12",
         "barryvdh/laravel-debugbar": "^3.2",
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
