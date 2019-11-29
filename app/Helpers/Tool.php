@@ -121,6 +121,11 @@ class Tool
         $code = explode(' ', Arr::get(app('onedrive')->settings, 'code'));
         $stream = explode(' ', Arr::get(app('onedrive')->settings, 'stream'));
         $canEditExt = array_merge($code, $stream);
+
+        if (!isset($file['ext'])) {
+            return false;
+        }
+
         $isText = in_array($file['ext'], $canEditExt);
         $isBigFile = $file['size'] > 5 * 1024 * 1024 ?: false;
 
