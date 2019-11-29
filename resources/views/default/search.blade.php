@@ -35,7 +35,7 @@
                                  style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">
                                 <a href="{{ route('search.show', ['query' => $item['id'], 'onedrive' => app('onedrive')->id]) }}"
                                    title="{{ $item['name'] }}">
-                                    <i class="fa {{ getExtIcon($item['ext']) }}"></i> {{ $item['name'] }}
+                                    <i class="fa {{ getExtIcon($item['ext'] ?? '') }}"></i> {{ $item['name'] }}
                                 </a>
                             </div>
                             <div class="col-sm-2 d-none d-md-block d-md-none">

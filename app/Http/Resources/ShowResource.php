@@ -26,7 +26,7 @@ class ShowResource extends JsonResource
         }
 
         foreach ($show as $key => $suffix) {
-            if (in_array($file['ext'], $suffix)) {
+            if (in_array($file['ext'] ?? '', $suffix)) {
                 $view = 'show.' . $key;
                 // 处理文本文件
                 if (in_array($key, ['stream', 'code'])) {
@@ -37,9 +37,9 @@ class ShowResource extends JsonResource
                     } else {
                         $file['content'] = getFileContent($file['@microsoft.graph.downloadUrl'], false);
                         if ($key === 'stream') {
-                            $fileType = empty(Constants::FILE_STREAM[$file['ext']])
+                            $fileType = empty(Constants::FILE_STREAM[$file['ext'] ?? 'file'])
                                 ? 'application/octet-stream'
-                                : Constants::FILE_STREAM[$file['ext']];
+                                : Constants::FILE_STREAM[$file['ext'] ?? 'file'];
 
                             return response(
                                 $file['content'],

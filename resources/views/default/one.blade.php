@@ -142,15 +142,13 @@
                                     <p class="text-danger">请确保目录名的唯一性，如果存在相同名称，服务器会自动选择新的名称。</p>
                                     <p class="text-danger">文件夹名不能以点开始或结束，且不能包含以下任意字符: " * : <>? / \ |。</p>
                                     <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="请输入目录名"
-                                            required>
+                                        <input type="text" name="name" class="form-control" placeholder="请输入目录名" required>
                                         <input type="hidden" name="path" value="{{ encrypt($origin_path) }}">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">确定</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消
-                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 </div>
                             </div>
                         </form>
@@ -204,7 +202,7 @@
         <li class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-8 col-sm-6" style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">
-                    @if( Arr::has($item,'folder'))
+                    @if( Arr::has($item, 'folder'))
                     <a href="{{ route('home', [
                         'query' => Tool::getEncodeUrl($origin_path ? $origin_path . '/'. $item['name'] : $item['name']),
                         'onedrive' => app('onedrive')->id
@@ -240,9 +238,9 @@
                         @endif
                         @if (auth()->guard('admin')->check() && Tool::canEdit($item) )
                         <a href="{{ route('admin.onedrive.file.update', [
-                                'id' => $item['id'],
+                                'id'       => $item['id'],
                                 'onedrive' => app('onedrive')->id
-                            ] ) }}"><i
+                            ]) }}"><i
                                 class="fa fa-pencil"></i></a>&nbsp;&nbsp;
                         @endif
                         <a class="download_url"
@@ -287,10 +285,10 @@
 <div>
 {{ 
     $items->appends([
-            'limit' => request()->get('limit'),
-            'by'    => request()->get('by'),
-            'sort'  => request()->get('sort'),
-        ])->links() 
+        'limit' => request()->get('limit'),
+        'by'    => request()->get('by'),
+        'sort'  => request()->get('sort'),
+    ])->links() 
 }}
 </div>
 @endif
@@ -304,7 +302,7 @@
         @foreach($items as $item)
             @if( Arr::has($item,'image'))
             <a href="{{ route('view', [
-                    'query' => $origin_path ? $origin_path . '/'. $item['name'] : $item['name'],
+                    'query'    => $origin_path ? $origin_path . '/'. $item['name'] : $item['name'],
                     'onedrive' => app('onedrive')->id
                 ]) }}" title="{{ $item['name'] }}" data-gallery>
                 <img class="lazy" data-original="{{ Arr::get($item, 'thumbnails.0.small.url', '') }}"
