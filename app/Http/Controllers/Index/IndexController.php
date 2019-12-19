@@ -290,7 +290,7 @@ class IndexController extends Controller
      */
     public function searchShow($id)
     {
-        $response = OneDrive::itemIdToPath($id, Tool::config('root'));
+        $response = OneDrive::itemIdToPath($id, app('onedrive')->root);
 
         if ($response['errno'] !== 0) {
             Tool::showMessage('获取连接失败', false);
@@ -322,7 +322,7 @@ class IndexController extends Controller
             'expires'    => time() + (int) app('onedrive')->expires * 60, // 目录密码过期时间
         ];
         Session::put('password:' . $encryptKey, $data);
-        $arr = Tool::handleEncryptDir(Tool::config('encrypt_path'));
+        $arr = Tool::handleEncryptDir(app('onedrive')->encrypt_path);
         $directory_password = $arr[$encryptKey];
         if (strcmp($password, $directory_password) === 0) {
             return redirect()->route($route, Tool::getEncodeUrl($realPath));
