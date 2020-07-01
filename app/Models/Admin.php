@@ -9,8 +9,6 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
-    protected $guarded = [];
-
     protected $casts = [
         'is_binded' => 'boolean',
         'is_tfa'    => 'boolean'
