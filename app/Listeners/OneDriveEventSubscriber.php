@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\Events\OneDrive\UploadEvent;
+use App\Events\OneDrive\Upload\CompletedEvent;
 
 class OneDriveEventSubscriber
 {
@@ -12,6 +12,11 @@ class OneDriveEventSubscriber
      * @return void
      */
     public function __construct()
+    {
+        //
+    }
+
+    public function handleUploadCompleted(CompletedEvent $event)
     {
         // TODO:
     }
@@ -24,8 +29,8 @@ class OneDriveEventSubscriber
     public function subscribe($events)
     {
         $events->listen(
-            UploadEvent::class,
-            'App\Listeners\OneDriveEventSubscriber@handleUserLogin'
+            'App\Events\OneDrive\Upload\CompletedEvent',
+            'App\Listeners\OneDriveEventSubscriber@handleUploadCompleted'
         );
     }
 }
