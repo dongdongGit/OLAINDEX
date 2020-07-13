@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Events\OneDrive\Upload\CompletedEvent;
 use App\Jobs\OneDriveUpload;
 use App\Models\Task;
 use Illuminate\Support\Arr;
@@ -39,6 +40,7 @@ class TaskObserver
             }
 
             if ($status == 'completed') {
+                event(new CompletedEvent($task));
                 clearOnedriveCache($task->onedrive_id);
             }
         }

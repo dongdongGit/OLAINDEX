@@ -39,11 +39,13 @@ class Copy extends Command
     public function handle()
     {
         $this->info('开始复制...');
+
         if (!empty($this->option('one_drive_id'))) {
             $this->call('od:refresh', ['--one_drive_id' => $this->option('one_drive_id')]);
         } else {
             $this->call('od:refresh');
         }
+
         $origin = $this->argument('origin');
         $_origin = OneDrive::pathToItemId($origin);
         $origin_id = $_origin['errno'] === 0 ? Arr::get($_origin, 'data.id') : exit('Origin Path Abnormal');
@@ -51,9 +53,11 @@ class Copy extends Command
         $_target = OneDrive::pathToItemId($target);
         $target_id = $_origin['errno'] === 0 ? Arr::get($_target, 'data.id') : exit('Target Path Abnormal');
         $response = OneDrive::copy($origin_id, $target_id);
+
         if ($response['errno'] === 0) {
             $redirect = Arr::get($response, 'data.redirect');
             $done = false;
+
             while (!$done) {
                 $resp = OneDrive::request(
                     'get',

@@ -129,11 +129,7 @@ class Tool
         $isText = in_array($file['ext'], $canEditExt);
         $isBigFile = $file['size'] > 5 * 1024 * 1024 ?: false;
 
-        if (!$isBigFile && $isText) {
-            return true;
-        } else {
-            return false;
-        }
+        return !$isBigFile && $isText;
     }
 
     /**
@@ -259,9 +255,9 @@ class Tool
             );
 
             return $key ? $quota[$key] ?? '' : $quota ?? '';
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
@@ -272,14 +268,15 @@ class Tool
     {
         $expires = app('onedrive')->access_token_expires;
         $hasExpired = $expires - time() <= 0 ? true : false;
+
         if ($hasExpired) {
             $oauth = new OauthController();
             $res = json_decode($oauth->refreshToken(false), true);
 
             return $res['code'] === 200;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     /**
@@ -303,9 +300,9 @@ class Tool
             );
 
             return $account;
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
