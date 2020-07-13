@@ -20,6 +20,7 @@
         "php": "^7.2",
         "arcanedev/log-viewer": "^5.0",
         "fideloper/proxy": "^4.0",
+        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/psr7": "^1.5",
         "illuminate/redis": "^6.0",
         "intervention/image": "^2.5",
