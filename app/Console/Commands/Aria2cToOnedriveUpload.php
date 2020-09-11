@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Task;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class Aria2cToOnedriveUpload extends Command
 {
@@ -64,7 +65,7 @@ class Aria2cToOnedriveUpload extends Command
             'gid'         => $gid,
             'type'        => is_file($path) ? 'file' : 'folder',
             'source'      => $path,
-            'target'      => $target,
+            'target'      => Str::endsWith($target, '/'),
             'onedrive_id' => app('onedrive')->id,
         ];
 
