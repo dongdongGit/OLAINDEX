@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Illuminate\Support\Facades\DB;
 
 class Model extends BaseModel
 {
